@@ -17,16 +17,13 @@ import java.util.regex.Pattern;
  */
 public class Solution {
 
-	public static int NUMBER_OF_TEST_CASES = 0;
-
-	public static final String INPUT_FILE_PATH = System.getProperty("user.dir")+ "/src/input.txt";
+	public static final String INPUT_FILE_PATH = System.getProperty("user.dir") + "/src/input.txt";
 	public static HashMap<String, Object> map = new HashMap<String, Object>();
 
 	public static void main(String[] args) {
 		try {
 			fetchFileIntoMap();
 			rotateTheArray();
-
 		} catch (IOException e) {
 			// TODO: handle exception
 		} catch (Exception e) {
@@ -38,19 +35,16 @@ public class Solution {
 	private static void fetchFileIntoMap() throws FileNotFoundException, IOException {
 		BufferedReader bufferedReader = new BufferedReader(new FileReader(INPUT_FILE_PATH));
 
-		Pattern arraysInfoLineP = Pattern.compile("[0-9] [0-9]$");
-		int counter = 0;
 		String line;
 		String tempTestCase = null;
 		while ((line = bufferedReader.readLine()) != null) {
-			if (counter == 0) {
-				NUMBER_OF_TEST_CASES = Integer.valueOf(line);
-				counter++;
-			}
-			Matcher matcher = arraysInfoLineP.matcher(line);
-			if (matcher.find()) {
+
+			String tempLine = line;
+			int spaces = tempLine.replaceAll("[^ ]", "").length();
+			if (spaces == 1) {
 				map.put(line, null);
 				tempTestCase = line;
+				continue;
 			} else {
 				if (tempTestCase != null) {
 					map.put(tempTestCase, line);
